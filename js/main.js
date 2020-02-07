@@ -1,5 +1,3 @@
-console.log('Hello Git!')
-
 let firstNumber = '',
 	secondNumber = '',
 	display,
