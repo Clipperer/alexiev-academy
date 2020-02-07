@@ -1,0 +1,65 @@
+html, body {
+    height: 450px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.calculator {
+    width: 500px;
+    display: flex;
+    border: 1px solid red;
+    flex-wrap: wrap;
+    padding: 12px;
+}
+
+.calculator__display {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 52px;
+}
+
+.calculator__display input {
+    width: 80%;
+    height: 100%;
+    padding: 0 24px 0 0;
+    text-align: right;
+}
+
+.calculator__digits {
+    width: 310px;
+    display: flex;
+    flex-flow: row wrap;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.calculator__digits__item {
+    width: 92px;
+    border: 1px solid grey;
+    text-align: center;
+    height: 92px;
+    margin: 4px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calculator__operators {
+    margin: 0 auto;
+    width: 150px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+}
+
+.calculator__operators__item {
+    width: 100%;
+    border: 1px solid grey;
+    height: 44px;
+}
+
+.calculator__digits__item--full {
+    width: 100%;
+}
