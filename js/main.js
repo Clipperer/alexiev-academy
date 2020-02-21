@@ -2,16 +2,57 @@ let firstNumber = '',
 	secondNumber = '',
 	display,
 	operator;
-
+const historyUL= document.querySelector(".history");
+	
 window.onload = (() => {
+	fillInNumberButtons();
+	fillInOperatorButtons();
 	setEventListeners();
-
 	display = document.getElementById('display');
-	setDisplayValue(0)
+	setDisplayValue(0);
+	document.getElementById("equals").addEventListener('click', evaluate);
+	document.getElementById("allClear").addEventListener('click', () => {
+		setDisplayValue(0);
+		firstNumber = '';
+		secondNumber = '';
+	});
 });
 const setEventListeners = () => {
 	setDigitsListeners();
 	setOperatorsListeners();
+};
+
+const fillInNumberButtons = () => {
+	const buttonsContainer = document.getElementsByClassName('calculator__digits')[0];
+	const buttonsDigits = new Array(10).fill(0).map((val, index) => index);
+	buttonsDigits.push(buttonsDigits.shift());
+	buttonsDigits.forEach((digit, index) => {
+		const newElement = document.createElement('div');
+		newElement.className = 'calculator__digits__item';
+		if (digit === 0) {
+			newElement.classList.add('calculator__digits__item--full');
+		}
+		newElement.innerText = digit.toString();
+		buttonsContainer.appendChild(newElement);
+	});
+};
+const fillInOperatorButtons = () =>{
+	const operatorsContainer= document.getElementsByClassName('calculator__operators')[0];
+	const operatorButtons= ["+","-","*","/","=","AC"];
+	operatorButtons.forEach((string,index)=>{
+	const newElement = document.createElement('div');
+	newElement.className= 'calculator__operators__item';
+	if (string === "AC"){
+		newElement.setAttribute("id", "allClear");
+		newElement.setAttribute("class", "calculator__operators__item undefinedOperator");
+	}
+	else if(string === "="){
+		newElement.setAttribute("id", "equals");
+		newElement.setAttribute("class", "calculator__operators__item undefinedOperator");
+	}
+	newElement.innerText= string;
+	operatorsContainer.appendChild(newElement);
+	});
 };
 
 const addDigitToNumbers = (value) => {
@@ -40,7 +81,10 @@ const setDigitsListeners = () => {
 
 const setOperatorsListeners = () => {
 	document.addEventListener('click', (event) => {
-		if (event.target.className.includes('calculator__operators__item')) {
+		if(event.target.className.includes('undefinedOperator')){   // when operator is "AC" or "equals" to set it to undefined so addDigitToNumbers works
+			setOperator(undefined);
+		}
+		else if (event.target.className.includes('calculator__operators__item')) {
 			setOperator(event.target.innerText);
 		}
 	})
@@ -49,3 +93,42 @@ const setOperatorsListeners = () => {
 const setOperator = (sentOperator) => {
 	operator = sentOperator;
 };
+function evaluate() {
+	if (operator === "+") {
+		if (secondNumber){firstNumber = eval(firstNumber) + eval(secondNumber);
+		secondNumber = '';
+		return setDisplayValue(firstNumber);
+		}else if(!secondNumber){                                    // if no number is added after the operator is set to "+" add firstNumber.
+			firstNumber= eval(firstNumber)+eval(firstNumber);
+			return setDisplayValue(firstNumber)
+		}
+	}
+	 else if (operator === "-") {
+		if(secondNumber){
+			firstNumber = eval(firstNumber) - eval(secondNumber);
+			secondNumber = '';
+			return setDisplayValue(firstNumber);
+		}else if(!secondNumber){								 // if no number is added after the operator is set to "-" subtract firstNumber
+			firstNumber= eval(firstNumber)-eval(firstNumber);
+			return setDisplayValue(firstNumber)
+		}
+	} else if (operator === "/") {
+		if(secondNumber){
+			firstNumber = eval(firstNumber) / eval(secondNumber);
+			secondNumber = '';
+			return setDisplayValue(firstNumber);
+		}else if(!secondNumber){								// if no number is added after the operator is set to "/" divide by firstNumber
+			firstNumber= eval(firstNumber)/eval(firstNumber);
+			return setDisplayValue(firstNumber)
+		}
+	} else if (operator === "*") {
+		if(secondNumber){
+			firstNumber = eval(firstNumber) * eval(secondNumber);
+			secondNumber = '';
+			return setDisplayValue(firstNumber);
+		}else if(!secondNumber){								// if no number is added after the operator is set to "*" multiply by firstNumber
+			firstNumber= eval(firstNumber)*eval(firstNumber);
+			return setDisplayValue(firstNumber)
+		}
+	}
+}
