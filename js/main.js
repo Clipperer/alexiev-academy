@@ -1,6 +1,7 @@
 let firstNumber = '',
 	secondNumber = '',
 	display,
+	sum,
 	operator;
 const historyUL= document.querySelector(".history");
 	
@@ -94,41 +95,49 @@ const setOperator = (sentOperator) => {
 	operator = sentOperator;
 };
 function evaluate() {
+	if (firstNumber){
+		firstNumber=eval(firstNumber);}
+	if (secondNumber){
+		secondNumber=eval(secondNumber);}
 	if (operator === "+") {
-		if (secondNumber){firstNumber = eval(firstNumber) + eval(secondNumber);
-		secondNumber = '';
-		return setDisplayValue(firstNumber);
-		}else if(!secondNumber){                                    // if no number is added after the operator is set to "+" add firstNumber.
-			firstNumber= eval(firstNumber)+eval(firstNumber);
+		if (secondNumber){
+			firstNumber += secondNumber;
+			secondNumber = '';
+			firstNumber;
+			return setDisplayValue(firstNumber);
+		}else if(!secondNumber){   
+			firstNumber+=firstNumber;
 			return setDisplayValue(firstNumber)
 		}
 	}
 	 else if (operator === "-") {
 		if(secondNumber){
-			firstNumber = eval(firstNumber) - eval(secondNumber);
-			secondNumber = '';
+			firstNumber -= secondNumber;
+			secondNumber ='';
 			return setDisplayValue(firstNumber);
-		}else if(!secondNumber){								 // if no number is added after the operator is set to "-" subtract firstNumber
-			firstNumber= eval(firstNumber)-eval(firstNumber);
+		}else if(!secondNumber){								 
+			firstNumber-=firstNumber;
 			return setDisplayValue(firstNumber)
 		}
-	} else if (operator === "/") {
+	}	 else if (operator === "/") {
 		if(secondNumber){
-			firstNumber = eval(firstNumber) / eval(secondNumber);
+			firstNumber /= secondNumber;
 			secondNumber = '';
 			return setDisplayValue(firstNumber);
-		}else if(!secondNumber){								// if no number is added after the operator is set to "/" divide by firstNumber
-			firstNumber= eval(firstNumber)/eval(firstNumber);
+		}else if(!secondNumber){								 
+			firstNumber/=firstNumber;
 			return setDisplayValue(firstNumber)
 		}
-	} else if (operator === "*") {
+	}	 else if (operator === "*") {
 		if(secondNumber){
-			firstNumber = eval(firstNumber) * eval(secondNumber);
+			firstNumber *= secondNumber;
 			secondNumber = '';
 			return setDisplayValue(firstNumber);
-		}else if(!secondNumber){								// if no number is added after the operator is set to "*" multiply by firstNumber
-			firstNumber= eval(firstNumber)*eval(firstNumber);
+		}else if(!secondNumber){								
+			firstNumber *= firstNumber;
 			return setDisplayValue(firstNumber)
 		}
 	}
-}
+	firstNumber=firstNumber.toString();
+	secondNumber=secondNumber.toString();
+};
