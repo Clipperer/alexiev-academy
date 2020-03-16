@@ -1,13 +1,16 @@
 import {setDisplayValue} from '../ui/set-display-value';
 
 export class Calculator {
-	firstNumber;
-	secondNumber;
-	operator;
 
-	addDigitToNumbers = (value) => {
+	constructor() {
+		this.firstNumber = '';
+		this.secondNumber = '';
+		this.operator = '';
+	}
+
+	addDigitToNumbers (value) {
 		value = parseInt(value).toString();
-		if (operator) {
+		if (this.operator) {
 			this.secondNumber += value.toString();
 		} else {
 			this.firstNumber += value.toString();
@@ -16,11 +19,12 @@ export class Calculator {
 	};
 
 	evaluate() {
+		console.log(this.firstNumber);
 		if (this.firstNumber) {
-			this.firstNumber = eval(this.firstNumber);
+			this.firstNumber = parseInt(this.firstNumber);
 		}
 		if (this.secondNumber) {
-			this.secondNumber = eval(this.secondNumber);
+			this.secondNumber = parseInt(this.secondNumber);
 		}
 		if (this.operator === "+") {
 			if (this.secondNumber) {
@@ -60,6 +64,7 @@ export class Calculator {
 				return setDisplayValue(this.firstNumber)
 			}
 		}
+		console.log(this.firstNumber);
 		this.firstNumber = this.firstNumber.toString();
 		this.secondNumber = this.secondNumber.toString();
 	}
@@ -68,4 +73,6 @@ export class Calculator {
 		this.operator = sentOperator;
 	};
 }
+
+export const calcInstance = new Calculator();
 
