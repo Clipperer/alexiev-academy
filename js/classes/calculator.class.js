@@ -19,7 +19,6 @@ export class Calculator {
 	};
 
 	evaluate() {
-		console.log(this.firstNumber);
 		if (this.firstNumber) {
 			this.firstNumber = parseInt(this.firstNumber);
 		}
@@ -64,7 +63,6 @@ export class Calculator {
 				return setDisplayValue(this.firstNumber)
 			}
 		}
-		console.log(this.firstNumber);
 		this.firstNumber = this.firstNumber.toString();
 		this.secondNumber = this.secondNumber.toString();
 	}
